@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "SuperStockpileMan (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "SuperStockpileMan (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

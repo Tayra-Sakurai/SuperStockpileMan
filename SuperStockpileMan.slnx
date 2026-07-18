@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/.nuget/">
+    <File Path="Nuget.config" />
+  </Folder>
+  <Project Path="SuperStockpileMan.Bus/SuperStockpileMan.Bus.csproj" Id="e541d2f9-59d8-462c-94e8-df8e18e00d33" />
+  <Project Path="SuperStockpileMan/SuperStockpileMan.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+    <Deploy />
+  </Project>
+</Solution>
