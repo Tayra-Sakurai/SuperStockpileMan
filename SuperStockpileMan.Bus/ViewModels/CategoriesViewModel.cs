@@ -92,6 +92,51 @@ namespace SuperStockpileMan.Bus.ViewModels
             }
         }
 
+        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(IsCategory))]
+        private async Task AddChildAsync(CategoryBase? category)
+        {
+            if (category is not Category category1)
+                return;
+
+            using SuperStockpileManContext context = await factory.CreateDbContextAsync();
+
+            Category category2 = new()
+            {
+                ParentId = category1.Id,
+            };
+            await context
+                .Attach(category1)
+                .Collection(e => e.Children)
+                .LoadAsync();
+            context.Add(category2);
+            await context.SaveChangesAsync();
+
+            if (category2.Id is not 0)
+                foreach (CategoryBase child in category1.Children)
+                    child.ParentId = category2.Id;
+
+            category1.Children.Clear();
+
+            await context.SaveChangesAsync();
+        }
+
+        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(IsCategory))]
+        private async Task AddSmallestAsync(CategoryBase? categoryBase)
+        {
+            if (categoryBase is Category category)
+            {
+                using SuperStockpileManContext context = await factory.CreateDbContextAsync();
+
+                SmallestCategory smallestCategory = new()
+                {
+                    ParentId = category.Id,
+                };
+
+                context.Add(smallestCategory);
+                await context.SaveChangesAsync();
+            }
+        }
+
         private static bool IsSelected(CategoryBase? category)
         {
             return category is not null;
