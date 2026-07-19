@@ -9,7 +9,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
-using Microsoft.Windows.Storage;
 using SuperStockpileMan.Bus.Contexts;
 using SuperStockpileMan.Bus.ViewModels;
 using System;
