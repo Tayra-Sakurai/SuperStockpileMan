@@ -20,7 +20,7 @@ jobs:
         with:
           dotnet-version: "8.0.x"
           architecture: x64
-          config-file: NuGet.config
+          config-file: Nuget.config
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v3
