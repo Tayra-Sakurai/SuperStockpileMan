@@ -1,4 +1,7 @@
-﻿using Microsoft.UI.Xaml;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Data;
@@ -6,6 +9,9 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.Storage;
+using SuperStockpileMan.Bus.Contexts;
+using SuperStockpileMan.Bus.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +21,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,6 +42,8 @@ namespace SuperStockpileMan
         public App()
         {
             InitializeComponent();
+
+            Ioc.Default.ConfigureServices(GetService());
         }
 
         /// <summary>
@@ -45,6 +54,19 @@ namespace SuperStockpileMan
         {
             _window = new MainWindow();
             _window.Activate();
+        }
+
+        private static IServiceProvider GetService()
+        {
+            ServiceCollection services = new();
+            StorageFolder localFolder = Microsoft.Windows.Storage.ApplicationData.GetDefault().LocalFolder;
+            string dataPath = System.IO.Path.Combine(localFolder.Path, "SuperStockpileMan.db");
+            services.AddDbContextFactory<SuperStockpileManContext>(
+                builder => builder.UseSqlite($"Data Source={dataPath}"));
+
+            services.AddTransient<CategoriesViewModel>();
+
+            return services.BuildServiceProvider();
         }
     }
 }

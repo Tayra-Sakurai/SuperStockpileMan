@@ -1,0 +1,39 @@
+name: Build the Solution and Release it
+
+on:
+  push:
+    branches:
+      - master
+      - draft*
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build the solution
+    runs-on: windows-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v7
+
+      - name: Setup .NET 8.0
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: "8.0.x"
+          architecture: x64
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v3
+        with:
+          msbuild-architecture: x64
+
+      - name: Restore project for build
+        run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64
+
+      - name: Build the MSIX package
+        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageDir="AppPackage"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          path: AppPackage/**.*
+          name: AppPackage

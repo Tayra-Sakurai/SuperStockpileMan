@@ -1,7 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using SuperStockpileMan.Bus.Contexts;
+using SuperStockpileMan.Bus.Messages;
 using SuperStockpileMan.Bus.Models;
 using System;
 using System.Collections.Generic;
@@ -137,14 +139,27 @@ namespace SuperStockpileMan.Bus.ViewModels
             }
         }
 
+        [RelayCommand(CanExecute = nameof(IsSelected))]
+        private void Detail(CategoryBase? categoryBase)
+        {
+            if (categoryBase is Category category)
+            {
+                WeakReferenceMessenger.Default.Send(new CategoryInvokedMessage(category));
+                return;
+            }
+
+            if (categoryBase is SmallestCategory smallestCategory)
+            {
+                WeakReferenceMessenger.Default.Send(new SmallestCategoryInvokedMessage(smallestCategory));
+                return;
+            }
+
+            return;
+        }
+
         private static bool IsSelected(CategoryBase? category)
         {
             return category is not null;
-        }
-
-        private static bool IsSmallest(CategoryBase? category)
-        {
-            return category is SmallestCategory;
         }
 
         private static bool IsCategory(CategoryBase? category)
