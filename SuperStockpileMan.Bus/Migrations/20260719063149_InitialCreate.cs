@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -134,6 +134,27 @@ namespace SuperStockpileMan.Bus.Migrations
                 table: "Locations",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.Sql(
+                @"
+CREATE TRIGGER log_insertion AFTER INSERT ON Items
+FOR EACH ROW
+BEGIN
+    INSERT INTO Logs(ItemId, Action) VALUES (NEW.Id, 1);
+END;
+
+CREATE TRIGGER log_update AFTER UPDATE ON Items
+FOR EACH ROW
+BEGIN
+    INSERT INTO Logs(ItemId, Action) VALUES (NEW.Id, 3);
+END;
+
+CREATE TRIGGER log_removal AFTER DELETE ON Items
+FOR EACH ROW
+BEGIN
+    INSERT INTO Logs(ItemId, Action) VALUES (OLD.Id, 2);
+END;
+                ");
         }
 
         /// <inheritdoc />

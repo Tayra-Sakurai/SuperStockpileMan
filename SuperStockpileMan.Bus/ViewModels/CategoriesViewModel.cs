@@ -14,14 +14,24 @@ using System.Threading.Tasks;
 
 namespace SuperStockpileMan.Bus.ViewModels
 {
-    public partial class CategoriesViewModel : ObservableObject
+    public partial class CategoriesViewModel : ObservableRecipient, IRecipient<CategoryAddedMessage>, IRecipient<CategoryRemovedMessage>, IRecipient<SmallestCategoryAddedMessage>, IRecipient<SmallestCategoryRemovedMessage>
     {
         private IDbContextFactory<SuperStockpileManContext> factory;
 
         public CategoriesViewModel(IDbContextFactory<SuperStockpileManContext> factory)
+            : base()
         {
             this.factory = factory;
             Categories = [];
+            Messenger.Register<CategoryAddedMessage>(this);
+            Messenger.Register<CategoryRemovedMessage>(this);
+            Messenger.Register<SmallestCategoryAddedMessage>(this);
+            Messenger.Register<SmallestCategoryRemovedMessage>(this);
+        }
+
+        ~CategoriesViewModel()
+        {
+            Messenger.UnregisterAll(this);
         }
 
         [ObservableProperty]
@@ -144,13 +154,13 @@ namespace SuperStockpileMan.Bus.ViewModels
         {
             if (categoryBase is Category category)
             {
-                WeakReferenceMessenger.Default.Send(new CategoryInvokedMessage(category));
+                Messenger.Send(new CategoryInvokedMessage(category));
                 return;
             }
 
             if (categoryBase is SmallestCategory smallestCategory)
             {
-                WeakReferenceMessenger.Default.Send(new SmallestCategoryInvokedMessage(smallestCategory));
+                Messenger.Send(new SmallestCategoryInvokedMessage(smallestCategory));
                 return;
             }
 
@@ -165,6 +175,26 @@ namespace SuperStockpileMan.Bus.ViewModels
         private static bool IsCategory(CategoryBase? category)
         {
             return category is Category;
+        }
+
+        public async void Receive(CategoryAddedMessage message)
+        {
+            await LoadAsync();
+        }
+
+        public async void Receive(CategoryRemovedMessage message)
+        {
+            await LoadAsync();
+        }
+
+        public async void Receive(SmallestCategoryAddedMessage message)
+        {
+            await LoadAsync();
+        }
+
+        public async void Receive(SmallestCategoryRemovedMessage message)
+        {
+            await LoadAsync();
         }
     }
 }
