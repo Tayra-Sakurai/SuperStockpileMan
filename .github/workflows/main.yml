@@ -30,10 +30,10 @@ jobs:
         run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64
 
       - name: Build the MSIX package
-        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:AppxPackageDir="AppPackage"
+        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
-          path: "**.msix*"
+          path: SuperStockpileMan\AppPackages\**
           name: AppPackage
