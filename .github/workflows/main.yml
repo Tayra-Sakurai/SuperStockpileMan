@@ -29,7 +29,7 @@ jobs:
       - name: Decode the PFX
         run: |
           $pfx_key = [System.Convert]::FromBase64String("${{ secrets.pfx_key }}")
-          $certificatePath = "SuperStockpileMan_TemporaryKey.pfx"
+          $certificatePath = "SuperStockpileMan\SuperStockpileMan_TemporaryKey.pfx"
           [IO.File]::WriteAllBytes("$certificatePath", $pfx_key)
 
       - name: Restore project for build
@@ -40,7 +40,7 @@ jobs:
 
       - name: Export .cer file
         run: |
-          $cert = Get-PfxCertificate -FilePath "SuperStockpileMan_TemporaryKey.pfx" -Password "${{ secrets.password }}"
+          $cert = Get-PfxCertificate -FilePath "SuperStockpileMan\SuperStockpileMan_TemporaryKey.pfx" -Password "${{ secrets.password }}"
           Export-Certificate -Cert $cert -FilePath "SuperStockpileMan\AppPackage\SuperStockpileMan_TemporaryKey.cer"
 
       - name: Upload artifacts
