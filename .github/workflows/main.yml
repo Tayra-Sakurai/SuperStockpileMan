@@ -26,14 +26,14 @@ jobs:
         with:
           msbuild-architecture: x64
 
-      - name: Restore project for build
-        run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64
-
       - name: Decode the PFX
         run: |
           $pfx_key = [System.Convert]::FromBase64String("${{ secrets.pfx_key }}")
           $certificatePath = "SuperStockpileMan_TemporaryKey.pfx"
           [IO.File]::WriteAllBytes("$certificatePath", $pfx_key)
+
+      - name: Restore project for build
+        run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64 /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
 
       - name: Build the MSIX package
         run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
