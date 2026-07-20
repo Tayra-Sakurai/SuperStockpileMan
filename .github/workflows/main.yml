@@ -32,6 +32,9 @@ jobs:
           $certificatePath = "SuperStockpileMan_TemporaryKey.pfx"
           [IO.File]::WriteAllBytes("$certificatePath", $pfx_key)
 
+      - name: Check out the contents.
+        run: ls
+
       - name: Restore project for build
         run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64 /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
 
