@@ -39,7 +39,7 @@ jobs:
         run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64 /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
 
       - name: Build the MSIX package
-        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
+        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx" /p:PackageCertificatePassword="${{ secrets.PASSWORD }}"
 
       - name: Export .cer file
         run: |
