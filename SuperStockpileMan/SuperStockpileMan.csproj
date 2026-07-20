@@ -14,6 +14,9 @@
     <Nullable>enable</Nullable>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="SuperStockpileMan_TemporaryKey_b64.txt" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -71,5 +74,7 @@
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <DefaultLanguage>ja-JP</DefaultLanguage>
+    <PackageCertificateThumbprint>6CB0564F69C4C6607277F35E9C9A250D787E9753</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
 </Project>
