@@ -51,6 +51,8 @@ namespace SuperStockpileMan
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            CheckAndOutputSettings();
+
             _window = new MainWindow();
             _window.Activate();
         }
@@ -67,6 +69,20 @@ namespace SuperStockpileMan
             services.AddTransient<CategoryViewModel>();
 
             return services.BuildServiceProvider();
+        }
+
+        private static void CheckAndOutputSettings()
+        {
+            Microsoft.Windows.Storage.ApplicationDataContainer settings = Microsoft.Windows.Storage.ApplicationData.GetDefault().LocalSettings;
+            if (settings.Values["IsInitialized"] is not true)
+            {
+                using (var context = Ioc.Default.GetRequiredService<IDbContextFactory<SuperStockpileManContext>>().CreateDbContext())
+                {
+                    context.Database.Migrate();
+                }
+
+                settings.Values["IsInitialized"] = true;
+            }
         }
     }
 }
