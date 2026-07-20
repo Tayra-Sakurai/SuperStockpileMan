@@ -12,5 +12,6 @@ namespace SuperStockpileMan.Bus.Models
         public string Name { get; set; } = string.Empty;
         public int? ParentId { get; set; }
         public CategoryBase? Parent { get; set; }
+        public ICollection<Location> Locations { get; } = new HashSet<Location>();
     }
 }

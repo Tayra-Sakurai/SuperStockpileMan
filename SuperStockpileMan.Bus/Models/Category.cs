@@ -9,6 +9,6 @@ namespace SuperStockpileMan.Bus.Models
 {
     public class Category : CategoryBase
     {
-        public ICollection<CategoryBase> Children { get; } = new HashSet<CategoryBase>();
+        public ObservableCollection<CategoryBase> Children { get; } = [];
     }
 }

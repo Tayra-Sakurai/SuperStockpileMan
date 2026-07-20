@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SuperStockpileMan.Bus.Contexts;
 using SuperStockpileMan.Bus.Messages;
 using SuperStockpileMan.Bus.Models;
@@ -9,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +18,7 @@ namespace SuperStockpileMan.Bus.ViewModels
 {
     public partial class CategoriesViewModel : ObservableRecipient, IRecipient<CategoryAddedMessage>, IRecipient<CategoryRemovedMessage>, IRecipient<SmallestCategoryAddedMessage>, IRecipient<SmallestCategoryRemovedMessage>
     {
-        private IDbContextFactory<SuperStockpileManContext> factory;
+        private readonly IDbContextFactory<SuperStockpileManContext> factory;
 
         public CategoriesViewModel(IDbContextFactory<SuperStockpileManContext> factory)
             : base()
@@ -35,21 +37,82 @@ namespace SuperStockpileMan.Bus.ViewModels
         }
 
         [ObservableProperty]
-        private ObservableCollection<CategoryBase> categories;
+        private ObservableCollection<Category> categories;
+        [ObservableProperty]
+        private string searchPhrase = string.Empty;
 
-        [RelayCommand(AllowConcurrentExecutions = false)]
-        public async Task LoadAsync()
+        private async Task LoadCategoryAsync(Func<CategoryBase, bool> predicate)
         {
             using SuperStockpileManContext context = await factory.CreateDbContextAsync();
 
             Categories.Clear();
 
-            foreach (
-                CategoryBase category in
+            Stack<Category> stack = new();
+            List<Category> list = [];
+
+            await foreach(
+                Category category in
                 context
-                .CategoryBases
-                .OrderBy(e  => e.Name))
-                Categories.Add(category);
+                .Categories
+                .AsAsyncEnumerable())
+            {
+                stack.Push(category);
+                list.Insert(0, category);
+            }
+
+            while (stack.Count > 0)
+            {
+                Category current = stack.Pop();
+
+                EntityEntry<Category> entityEntry = context.Entry(current);
+                await entityEntry
+                    .Collection(e => e.Children)
+                    .LoadAsync();
+
+                foreach (CategoryBase categoryBase in current.Children.Where(predicate))
+                    if (categoryBase is Category category)
+                        stack.Push(category);
+            }
+        }
+
+        private async Task LoadCategoryAsync()
+        {
+            using SuperStockpileManContext context = await factory.CreateDbContextAsync();
+
+            Categories.Clear();
+
+            Stack<Category> stack = new();
+
+            await foreach(
+                Category category in
+                context
+                .Categories
+                .Where(e => e.ParentId == null)
+                .OrderByDescending(e => e.Name)
+                .AsAsyncEnumerable())
+            {
+                stack.Push(category);
+                Categories.Insert(0, category);
+            }
+
+            while (stack.Count > 0)
+            {
+                Category current = stack.Pop();
+                EntityEntry<Category> entityEntry = context.Entry(current);
+                await entityEntry
+                    .Collection(e => e.Children)
+                    .LoadAsync();
+
+                foreach (CategoryBase categoryBase in current.Children)
+                    if (categoryBase is Category category)
+                        stack.Push(category);
+            }
+        }
+
+        [RelayCommand(AllowConcurrentExecutions = false)]
+        public async Task LoadAsync()
+        {
+            await LoadCategoryAsync();
         }
 
         [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(IsSelected))]
@@ -167,6 +230,17 @@ namespace SuperStockpileMan.Bus.ViewModels
             return;
         }
 
+        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(IsValidSearchPhrase))]
+        private async Task SearchAsync()
+        {
+            if (string.IsNullOrWhiteSpace(SearchPhrase))
+                return;
+
+            string[] phrases = SearchPhrase.Split(' ');
+
+            await LoadCategoryAsync(e => phrases.Any(p => e.Name.Contains(p)));
+        }
+
         private static bool IsSelected(CategoryBase? category)
         {
             return category is not null;
@@ -175,6 +249,11 @@ namespace SuperStockpileMan.Bus.ViewModels
         private static bool IsCategory(CategoryBase? category)
         {
             return category is Category;
+        }
+
+        private bool IsValidSearchPhrase()
+        {
+            return !string.IsNullOrWhiteSpace(SearchPhrase);
         }
 
         public async void Receive(CategoryAddedMessage message)

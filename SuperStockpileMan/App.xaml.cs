@@ -64,6 +64,7 @@ namespace SuperStockpileMan
                 builder => builder.UseSqlite($"Data Source={dataPath}"));
 
             services.AddTransient<CategoriesViewModel>();
+            services.AddTransient<CategoryViewModel>();
 
             return services.BuildServiceProvider();
         }
