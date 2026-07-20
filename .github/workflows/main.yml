@@ -29,21 +29,21 @@ jobs:
       - name: Decode the PFX
         run: |
           $pfx_key = [System.Convert]::FromBase64String("${{ secrets.pfx_key }}")
-          $certificatePath = "SuperStockpileMan_TemporaryKey.pfx"
+          $certificatePath = "SuperStockpileMan\SuperStockpileMan_TemporaryKey.pfx"
           [IO.File]::WriteAllBytes("$certificatePath", $pfx_key)
 
       - name: Check out the contents.
         run: ls
 
       - name: Restore project for build
-        run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64 /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx"
+        run: msbuild SuperStockpileMan.slnx /r /p:Configuration=Release /p:Platform=x64
 
       - name: Build the MSIX package
-        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly /p:PackageCertificateKeyFile="SuperStockpileMan_TemporaryKey.pfx" /p:PackageCertificatePassword="${{ secrets.PASSWORD }}"
+        run: msbuild SuperStockpileMan.slnx /p:Configuration=Release /p:Platform=x64 /p:GenerateAppxPackageOnBuild=true /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly
 
       - name: Export .cer file
         run: |
-          $cert = Get-PfxCertificate -FilePath "SuperStockpileMan\SuperStockpileMan_TemporaryKey.pfx" -Password "${{ secrets.password }}"
+          $cert = Get-PfxCertificate -FilePath "SuperStockpileMan\SuperStockpileMan_TemporaryKey.pfx"
           Export-Certificate -Cert $cert -FilePath "SuperStockpileMan\AppPackages\SuperStockpileMan_TemporaryKey.cer"
 
       - name: Upload artifacts
