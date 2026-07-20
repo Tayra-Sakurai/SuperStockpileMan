@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SuperStockpileMan/SuperStockpileMan_TemporaryKey_b64.txt
