@@ -25,6 +25,7 @@
     <Page Remove="BundleArtifacts\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="CustomDataTemplates.xaml" />
     <None Remove="SuperStockpileMan_TemporaryKey_b64.txt" />
   </ItemGroup>
 
@@ -99,5 +100,10 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Remove="BundleArtifacts\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="CustomDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

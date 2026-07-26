@@ -57,7 +57,10 @@ namespace SuperStockpileMan.Bus.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateTime = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    DateTime = table.Column<DateTimeOffset>(
+                        type: "TEXT",
+                        nullable: false,
+                        defaultValueSql: "DATETIME('now') || 'Z'"),
                     Message = table.Column<string>(type: "TEXT", nullable: true),
                     Action = table.Column<int>(type: "INTEGER", nullable: false)
                 },

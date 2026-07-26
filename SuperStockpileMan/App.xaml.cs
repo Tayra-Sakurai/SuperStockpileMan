@@ -70,6 +70,12 @@ namespace SuperStockpileMan
 
             services.AddTransient<CategoriesViewModel>();
             services.AddTransient<CategoryViewModel>();
+            services.AddTransient<SmallestCategoryViewModel>();
+            services.AddTransient<LocationsViewModel>();
+            services.AddTransient<LocationViewModel>();
+            services.AddTransient<LogsViewModel>();
+            services.AddTransient<ItemsViewModel>();
+            services.AddTransient<ItemViewModel>();
 
             return services.BuildServiceProvider();
         }

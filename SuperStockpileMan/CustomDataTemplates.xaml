@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    x:Class="SuperStockpileMan.CustomDataTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SuperStockpileMan"
+    xmlns:models="using:SuperStockpileMan.Bus.Models">
+    <DataTemplate
+        x:DataType="models:SmallestCategory"
+        x:Key="SmallCategoryComboBoxTemplate">
+        <TextBlock Text="{x:Bind Name}"/>
+    </DataTemplate>
+    
+    <DataTemplate
+        x:DataType="models:Category"
+        x:Key="CategoryComboBoxTemplate">
+        <TextBlock Text="{x:Bind Name}"/>
+    </DataTemplate>
+
+    <DataTemplate
+        x:DataType="models:Location"
+        x:Key="LocationComboBoxTemplate">
+        <TextBlock Text="{x:Bind Name}"/>
+    </DataTemplate>
+</ResourceDictionary>
