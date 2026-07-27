@@ -11,8 +11,8 @@ namespace SuperStockpileMan
 {
     public sealed partial class CategoryTreeViewDataTemplateSelector : DataTemplateSelector
     {
-        public required DataTemplate CategoryTemplate { get; set; }
-        public required DataTemplate SmallestCategoryTemplate { get; set; }
+        public DataTemplate CategoryTemplate { get; set; }
+        public DataTemplate SmallestCategoryTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
