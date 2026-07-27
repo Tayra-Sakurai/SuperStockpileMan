@@ -143,7 +143,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             await LoadAsync();
         }
 
-        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(IsSelected))]
+        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(CanAddParent))]
         private async Task AddParentCategoryAsync(CategoryBase? category)
         {
             if (category is not null)
@@ -247,6 +247,11 @@ namespace SuperStockpileMan.Bus.ViewModels
         private static bool IsSelected(CategoryBase? category)
         {
             return category is not null;
+        }
+
+        private static bool CanAddParent(CategoryBase? category)
+        {
+            return category is not null && category.ParentId <= 0;
         }
 
         private static bool IsCategory(CategoryBase? category)

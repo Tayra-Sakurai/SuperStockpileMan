@@ -41,6 +41,7 @@ namespace SuperStockpileMan.TemplatedElements
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Text = ((TextBox)sender).Text;
+            ValidateText();
         }
 
         public string Text
@@ -122,7 +123,14 @@ namespace SuperStockpileMan.TemplatedElements
 
         private static void OnValidationErrorInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            ((ValidationTextBox)d).ValidateText();
+            ((INotifyDataErrorInfo)e.OldValue).ErrorsChanged -= ((ValidationTextBox)d).ValidationTextBox_ErrorsChanged;
+            ((INotifyDataErrorInfo)e.NewValue).ErrorsChanged += ((ValidationTextBox)d).ValidationTextBox_ErrorsChanged;
+        }
 
+        private void ValidationTextBox_ErrorsChanged(object? sender, DataErrorsChangedEventArgs e)
+        {
+            ValidateText();
         }
 
         private void ValidateText()

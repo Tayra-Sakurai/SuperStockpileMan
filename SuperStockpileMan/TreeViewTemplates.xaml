@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResourceDictionary
+    x:Class="SuperStockpileMan.TreeViewTemplates"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SuperStockpileMan"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:models="using:SuperStockpileMan.Bus.Models">
+    <DataTemplate
+        x:Key="CategoryTreeViewTemplate"
+        x:DataType="models:Category">
+        <TreeViewItem ItemsSource="{x:Bind Children}">
+            <controls:DataRow>
+                <TextBlock Text="{x:Bind Id}"/>
+                <TextBlock Text="{x:Bind Name}"/>
+            </controls:DataRow>
+        </TreeViewItem>
+    </DataTemplate>
+
+    <DataTemplate
+        x:Key="SmallestCategoryTreeViewTemplate"
+        x:DataType="models:SmallestCategory">
+        <TreeViewItem>
+            <controls:DataRow>
+                <TextBlock Text="{x:Bind Id}"/>
+                <TextBlock Text="{x:Bind Name}"/>
+            </controls:DataRow>
+        </TreeViewItem>
+    </DataTemplate>
+
+    <DataTemplate
+        x:Key="InstantTreeViewCategory"
+        x:DataType="models:Category">
+        <TreeViewItem
+            Content="{x:Bind Name}"
+            ItemsSource="{x:Bind Children}"/>
+    </DataTemplate>
+
+    <DataTemplate
+        x:Key="InstantTreeViewSmallestCategory"
+        x:DataType="models:SmallestCategory">
+        <TreeViewItem
+            Content="{x:Bind Name}"/>
+    </DataTemplate>
+
+    <local:CategoryTreeViewDataTemplateSelector
+        CategoryTemplate="{StaticResource CategoryTreeViewTemplate}"
+        SmallestCategoryTemplate="{StaticResource SmallestCategoryTreeViewTemplate}"
+        x:Key="CategoryTreeViewDataTemplateSelector"/>
+
+    <local:CategoryTreeViewDataTemplateSelector
+        CategoryTemplate="{StaticResource InstantTreeViewCategory}"
+        SmallestCategoryTemplate="{StaticResource InstantTreeViewSmallestCategory}"
+        x:Key="InstantCategoryTreeViewTemplateSelector"/>
+</ResourceDictionary>

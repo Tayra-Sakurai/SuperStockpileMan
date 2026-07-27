@@ -26,6 +26,30 @@ namespace SuperStockpileMan.Bus.ViewModels
             this.factory = factory;
             category = new();
             Children = [];
+            Categories = [];
+        }
+
+        private async Task LoadCategoriesAsync()
+        {
+            using SuperStockpileManContext context = await factory.CreateDbContextAsync();
+
+            EntityEntry<Category> entityEntry = context.Attach(category);
+            await entityEntry
+                .Reference(e => e.Parent)
+                .LoadAsync();
+            OnPropertyChanged(nameof(Parent));
+
+            Categories.Clear();
+
+            Categories.Add(null);
+
+            await foreach (
+                Category category in
+                context
+                .Categories
+                .OrderBy(e => e.Id)
+                .AsAsyncEnumerable())
+                Categories.Add(category);
         }
 
         private async Task LoadChildrenAsync(Category category)
@@ -59,6 +83,8 @@ namespace SuperStockpileMan.Bus.ViewModels
 
             foreach (CategoryBase categoryBase in category.Children)
                 Children.Add(categoryBase);
+
+            await LoadCategoriesAsync();
         }
 
         public async Task LoadExistingCategoryAsync(Category category)
@@ -71,6 +97,9 @@ namespace SuperStockpileMan.Bus.ViewModels
             }
 
             OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Parent));
+
+            await LoadCategoriesAsync();
 
             RemoveCommand.NotifyCanExecuteChanged();
             SaveCommand.NotifyCanExecuteChanged();
@@ -91,8 +120,17 @@ namespace SuperStockpileMan.Bus.ViewModels
             }
         }
 
+        public CategoryBase? Parent
+        {
+            get => category.Parent;
+            set => SetProperty(category.Parent, value, category, (m, v) => m.Parent = v, true);
+        }
+
         [ObservableProperty]
-        public ObservableCollection<CategoryBase> children;
+        private ObservableCollection<CategoryBase> children;
+
+        [ObservableProperty]
+        private ObservableCollection<Category?> categories;
 
         [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(CanRemove))]
         private async Task RemoveAsync()

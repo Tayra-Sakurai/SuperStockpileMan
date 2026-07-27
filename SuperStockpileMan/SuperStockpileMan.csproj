@@ -27,6 +27,9 @@
   <ItemGroup>
     <None Remove="CustomDataTemplates.xaml" />
     <None Remove="SuperStockpileMan_TemporaryKey_b64.txt" />
+    <None Remove="TreeViewTemplates.xaml" />
+    <None Remove="Views\CategoriesView.xaml" />
+    <None Remove="Views\CategoryView.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,13 +57,15 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Labs.WinUI.Controls.DataTable" Version="0.1.260617-build.2640" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.HeaderedControls" Version="8.2.251219" />
+    <PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2270" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2526" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
@@ -102,7 +107,22 @@
     <PRIResource Remove="BundleArtifacts\**" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\CategoryView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="TreeViewTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="CustomDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\CategoriesView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
