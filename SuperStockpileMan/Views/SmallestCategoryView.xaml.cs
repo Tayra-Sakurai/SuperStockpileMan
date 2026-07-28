@@ -26,32 +26,27 @@ namespace SuperStockpileMan.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class CategoryView : Page, IRecipient<CategoryRemovedMessage>
+    public sealed partial class SmallestCategoryView : Page, IRecipient<SmallestCategoryRemovedMessage>
     {
-        private CategoryViewModel? viewModel;
+        private SmallestCategoryViewModel? viewModel;
 
-        public CategoryView()
+        public SmallestCategoryView()
         {
             InitializeComponent();
-
-            WeakReferenceMessenger.Default.Register(this);
-        }
-
-        ~CategoryView()
-        {
-            WeakReferenceMessenger.Default.UnregisterAll(this);
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            viewModel = Ioc.Default.GetRequiredService<CategoryViewModel>();
+            viewModel = Ioc.Default.GetRequiredService<SmallestCategoryViewModel>();
 
-            if (e.Parameter is Category category)
-                await viewModel.LoadExistingCategoryAsync(category);
+            if (e.Parameter is SmallestCategory smallestCategory)
+            {
+                await viewModel.LoadExistingValueAsync(smallestCategory);
+            }
 
-            await viewModel.LoadAsync();
+            WeakReferenceMessenger.Default.Register(this);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -61,7 +56,7 @@ namespace SuperStockpileMan.Views
             WeakReferenceMessenger.Default.UnregisterAll(this);
         }
 
-        public void Receive(CategoryRemovedMessage message)
+        public void Receive(SmallestCategoryRemovedMessage message)
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();

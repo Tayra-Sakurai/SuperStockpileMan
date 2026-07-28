@@ -28,7 +28,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             smallestCategory = new();
         }
 
-        public async Task LoadExistingValue(SmallestCategory smallestCategory)
+        public async Task LoadExistingValueAsync(SmallestCategory smallestCategory)
         {
             this.smallestCategory = smallestCategory;
 

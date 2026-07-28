@@ -11,6 +11,7 @@
                 <!-- Other merged dictionaries here -->
                 <ResourceDictionary Source="/CustomDataTemplates.xaml"/>
                 <ResourceDictionary Source="/TreeViewTemplates.xaml"/>
+                <ResourceDictionary Source="/DataTableTemplates.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
         </ResourceDictionary>

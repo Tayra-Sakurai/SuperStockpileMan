@@ -147,6 +147,9 @@
   <data name="IdCol.Content" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="LifeCol.Content" xml:space="preserve">
+    <value>期限</value>
+  </data>
   <data name="MustBePastMessage" xml:space="preserve">
     <value>過去の日付にしてください．</value>
   </data>
@@ -161,6 +164,9 @@
   </data>
   <data name="ParentCategoryBox.Header" xml:space="preserve">
     <value>親カテゴリを選択</value>
+  </data>
+  <data name="PurDateCol.Content" xml:space="preserve">
+    <value>購入日</value>
   </data>
   <data name="RequiredMessage" xml:space="preserve">
     <value>この項目は必須です．</value>
@@ -182,6 +188,9 @@
   </data>
   <data name="SearchBox.PlaceholderText" xml:space="preserve">
     <value>検索ワードを入力</value>
+  </data>
+  <data name="SmallestCategoryDescription.Text" xml:space="preserve">
+    <value>名称を編集できます．</value>
   </data>
   <data name="SrchBtn.Label" xml:space="preserve">
     <value>検索</value>
