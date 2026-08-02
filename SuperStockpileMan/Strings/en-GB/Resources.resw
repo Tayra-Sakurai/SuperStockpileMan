@@ -144,7 +144,7 @@
   <data name="DtlBtn.Label" xml:space="preserve">
     <value>Detail</value>
   </data>
-  <data name="IdCol.Content" xml:space="preserve">
+  <data name="IdColumn.Content" xml:space="preserve">
     <value>Identifier</value>
   </data>
   <data name="IdCol.Text" xml:space="preserve">
@@ -165,7 +165,7 @@
   <data name="NameBox.PlaceholderText" xml:space="preserve">
     <value>Example: Apple</value>
   </data>
-  <data name="NameCol.Content" xml:space="preserve">
+  <data name="NameColumn.Content" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="NameCol.Text" xml:space="preserve">

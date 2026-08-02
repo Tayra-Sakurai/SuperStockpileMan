@@ -32,9 +32,9 @@
         <Setter Property="Header">
             <Setter.Value>
                 <controls:DataTable>
-                    <controls:DataColumn x:Uid="IdCol"/>
+                    <controls:DataColumn x:Uid="IdColumn"/>
                     <controls:DataColumn
-                        x:Uid="NameCol"
+                        x:Uid="NameColumn"
                         DesiredWidth="*"/>
                     <controls:DataColumn
                         x:Uid="PurDateCol"
@@ -78,9 +78,9 @@
         <Setter Property="Header">
             <Setter.Value>
                 <controls:DataTable>
-                    <controls:DataColumn x:Uid="IdCol"/>
+                    <controls:DataColumn x:Uid="IdColumn"/>
                     <controls:DataColumn
-                        x:Uid="NameCol"
+                        x:Uid="NameColumn"
                         DesiredWidth="*"/>
                 </controls:DataTable>
             </Setter.Value>

@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Controls;
 using SuperStockpileMan.Bus.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,9 @@ namespace SuperStockpileMan
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
+            Debug.WriteLineIf(item is Category, "Category");
+            Debug.WriteLineIf(item is SmallestCategory, "SmallestCategory");
+
             if (item is Category)
                 return CategoryTemplate;
             else if (item is SmallestCategory)

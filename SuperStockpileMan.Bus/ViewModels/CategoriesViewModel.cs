@@ -12,6 +12,7 @@ using SuperStockpileMan.Bus.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -76,6 +77,8 @@ namespace SuperStockpileMan.Bus.ViewModels
                     if (categoryBase is Category category)
                         stack.Push(category);
             }
+
+            
         }
 
         private async Task LoadCategoryAsync()
@@ -84,32 +87,40 @@ namespace SuperStockpileMan.Bus.ViewModels
 
             Categories.Clear();
 
-            Stack<Category> stack = new();
+            Stack<Category> categories = new();
+            List<Category> list = [];
 
-            await foreach(
+            await foreach (
                 Category category in
                 context
                 .Categories
                 .Where(e => e.ParentId == null)
-                .OrderByDescending(e => e.Name)
                 .AsAsyncEnumerable())
-            {
-                stack.Push(category);
-                Categories.Insert(0, category);
-            }
+                categories.Push(category);
 
-            while (stack.Count > 0)
+            while (categories.Count > 0)
             {
-                Category current = stack.Pop();
+                Category current = categories.Pop();
                 EntityEntry<Category> entityEntry = context.Entry(current);
                 await entityEntry
                     .Collection(e => e.Children)
                     .LoadAsync();
+                Debug.WriteLine(entityEntry.State);
+                list.Add(current);
 
-                foreach (CategoryBase categoryBase in current.Children)
+                foreach (
+                    CategoryBase categoryBase in
+                    current.Children)
                     if (categoryBase is Category category)
-                        stack.Push(category);
+                        categories.Push(category);
             }
+
+            foreach (
+                Category category1 in
+                list
+                .OrderBy(e => e.Name)
+                .ToList())
+                Categories.Add(category1);
         }
 
         [RelayCommand(AllowConcurrentExecutions = false)]
