@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+// SPDX-FileCopyrightText: 2026 SAKURAI Tayra <tayra_sakurai@icloud.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -48,3 +51,4 @@ namespace SuperStockpileMan.Bus.Migrations
         }
     }
 }
+

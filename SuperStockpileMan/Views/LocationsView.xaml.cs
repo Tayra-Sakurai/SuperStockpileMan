@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 SAKURAI Tayra <tayra_sakurai@icloud.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
 using CommunityToolkit.Mvvm.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -42,3 +45,4 @@ namespace SuperStockpileMan.Views
         }
     }
 }
+

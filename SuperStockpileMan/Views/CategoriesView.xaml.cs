@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 SAKURAI Tayra <tayra_sakurai@icloud.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,3 +78,4 @@ public sealed partial class CategoriesView : Page, IRecipient<CategoryInvokedMes
         Frame.Navigate(typeof(SmallestCategoryView), message.Value);
     }
 }
+
