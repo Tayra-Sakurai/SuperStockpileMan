@@ -156,6 +156,9 @@
   <data name="LocationsDescription.Text" xml:space="preserve">
     <value>List of locations.</value>
   </data>
+  <data name="ItemsDescription.Text" xml:space="preserve">
+    <value>List of items.</value>
+  </data>
   <data name="MustBePastMessage" xml:space="preserve">
     <value>The date must be in the past.</value>
   </data>

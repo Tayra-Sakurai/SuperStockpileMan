@@ -156,6 +156,9 @@
   <data name="LocationsDescription.Text" xml:space="preserve">
     <value>保管場所の一覧を表示しています．</value>
   </data>
+  <data name="ItemsDescription.Text" xml:space="preserve">
+    <value>項目の一覧を表示しています．</value>
+  </data>
   <data name="MustBePastMessage" xml:space="preserve">
     <value>過去の日付にしてください．</value>
   </data>
