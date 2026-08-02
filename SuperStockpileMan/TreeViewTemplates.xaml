@@ -12,16 +12,10 @@
         x:DataType="models:Category">
         <muxc:TreeViewItem ItemsSource="{x:Bind Children}">
             <muxc:TreeViewItem.Content>
-                <Grid
-                    HorizontalAlignment="Stretch"
-                    ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <controls:DataRow>
                     <TextBlock Text="{Binding Id}"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                </Grid>
+                    <TextBlock Text="{Binding Name}"/>
+                </controls:DataRow>
             </muxc:TreeViewItem.Content>
         </muxc:TreeViewItem>
     </DataTemplate>
@@ -31,16 +25,10 @@
         x:DataType="models:SmallestCategory">
         <muxc:TreeViewItem>
             <muxc:TreeViewItem.Content>
-                <Grid
-                    HorizontalAlignment="Stretch"
-                    ColumnSpacing="12">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                <controls:DataRow>
                     <TextBlock Text="{Binding Id}"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Name}"/>
-                </Grid>
+                    <TextBlock Text="{Binding Name}"/>
+                </controls:DataRow>
             </muxc:TreeViewItem.Content>
         </muxc:TreeViewItem>
     </DataTemplate>
