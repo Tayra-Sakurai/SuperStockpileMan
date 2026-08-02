@@ -33,6 +33,19 @@ namespace SuperStockpileMan
         {
             InitializeComponent();
             SuperNav.ItemInvoked += SuperNav_ItemInvoked;
+            MainFrame.Navigated += MainFrame_Navigated;
+            SuperNav.BackRequested += SuperNav_BackRequested;
+        }
+
+        private void SuperNav_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (MainFrame.CanGoBack)
+                MainFrame.GoBack();
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            SuperNav.IsBackEnabled = MainFrame.CanGoBack;
         }
 
         private void SuperNav_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
