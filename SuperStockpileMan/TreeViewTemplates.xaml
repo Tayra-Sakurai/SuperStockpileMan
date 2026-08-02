@@ -10,7 +10,7 @@
     <DataTemplate
         x:Key="CategoryTreeViewTemplate"
         x:DataType="models:Category">
-        <muxc:TreeViewItem ItemsSource="{x:Bind Children}">
+        <muxc:TreeViewItem ItemsSource="{Binding Children}">
             <muxc:TreeViewItem.Content>
                 <controls:DataRow>
                     <TextBlock Text="{Binding Id}"/>
@@ -37,15 +37,15 @@
         x:Key="InstantTreeViewCategory"
         x:DataType="models:Category">
         <TreeViewItem
-            Content="{x:Bind Name}"
-            ItemsSource="{x:Bind Children}"/>
+            Content="{Binding Name}"
+            ItemsSource="{Binding Children}"/>
     </DataTemplate>
 
     <DataTemplate
         x:Key="InstantTreeViewSmallestCategory"
         x:DataType="models:SmallestCategory">
         <TreeViewItem
-            Content="{x:Bind Name}"/>
+            Content="{Binding Name}"/>
     </DataTemplate>
 
     <local:CategoryTreeViewDataTemplateSelector

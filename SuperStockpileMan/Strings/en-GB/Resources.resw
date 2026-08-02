@@ -147,9 +147,6 @@
   <data name="IdColumn.Content" xml:space="preserve">
     <value>Identifier</value>
   </data>
-  <data name="IdCol.Text" xml:space="preserve">
-    <value>Identifier</value>
-  </data>
   <data name="LifeCol.Content" xml:space="preserve">
     <value>Due Date</value>
   </data>
@@ -166,9 +163,6 @@
     <value>Example: Apple</value>
   </data>
   <data name="NameColumn.Content" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="NameCol.Text" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="ParentCategoryBox.Header" xml:space="preserve">

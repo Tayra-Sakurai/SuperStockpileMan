@@ -8,18 +8,18 @@
     <DataTemplate
         x:DataType="models:SmallestCategory"
         x:Key="SmallCategoryComboBoxTemplate">
-        <TextBlock Text="{x:Bind Name}"/>
+        <TextBlock Text="{Binding Name}"/>
     </DataTemplate>
     
     <DataTemplate
         x:DataType="models:Category"
         x:Key="CategoryComboBoxTemplate">
-        <TextBlock Text="{x:Bind Name}"/>
+        <TextBlock Text="{Binding Name}"/>
     </DataTemplate>
 
     <DataTemplate
         x:DataType="models:Location"
         x:Key="LocationComboBoxTemplate">
-        <TextBlock Text="{x:Bind Name}"/>
+        <TextBlock Text="{Binding Name}"/>
     </DataTemplate>
 </ResourceDictionary>
