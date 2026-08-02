@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.UI.Xaml.Controls;
 using SuperStockpileMan.Bus.Contexts;
 using SuperStockpileMan.Bus.Messages;
 using SuperStockpileMan.Bus.Models;
@@ -81,18 +82,25 @@ namespace SuperStockpileMan.Bus.ViewModels
             await LoadAsync();
         }
 
-        public IList<CategoryBase> RelatedCategories
+        [RelayCommand(CanExecute = nameof(CanAddRelatedCategory))]
+        private void AddRelatedCategory(CategoryBase? category)
         {
-            get => [.. location.CategoryBases];
-            set => SetProperty([.. location.CategoryBases], value, location, UpdateCategoryBases, true);
+            if (category == null)
+                return;
+
+            if (location.CategoryBases.Contains(category))
+                location.CategoryBases.Add(category);
         }
 
-        private static void UpdateCategoryBases(Location location, IList<CategoryBase> categoryBases)
+        private bool CanAddRelatedCategory(CategoryBase? category)
         {
-            location.CategoryBases.Clear();
+            if (category == null)
+                return false;
 
-            foreach (CategoryBase categoryBase in categoryBases)
-                location.CategoryBases.Add(categoryBase);
+            if (location.CategoryBases.Contains(category))
+                return false;
+
+            return true;
         }
 
         [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]

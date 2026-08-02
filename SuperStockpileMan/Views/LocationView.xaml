@@ -18,6 +18,7 @@
                 MaxHeight="40"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <TextBlock
             VerticalAlignment="Top"
             x:Uid="LocationDescription"
@@ -30,12 +31,22 @@
             Text="{x:Bind viewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             ValidationErrorInfo="{x:Bind viewModel}"/>
 
-        <TreeView
-            Grid.Row="2"
-            ItemsSource="{x:Bind viewModel.Categories}"
-            SelectionMode="Multiple"
-            SelectedItems="{x:Bind viewModel.RelatedCategories, Mode=TwoWay}"
-            ItemTemplateSelector="{StaticResource InstantCategoryTreeViewTemplateSelector}"/>
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="2">
+            <TreeView
+                x:Name="CategoriesView"
+                ItemsSource="{x:Bind viewModel.Categories}"
+                SelectionMode="Single"
+                ItemTemplateSelector="{StaticResource InstantCategoryTreeViewTemplateSelector}"/>
+
+            <AppBarButton
+                Icon="Add"
+                x:Uid="AddBtn"
+                Command="{x:Bind viewModel.AddRelatedCategoryCommand}"
+                CommandParameter="{Binding SelectedItem, ElementName=CategoriesView}"/>
+        </StackPanel>
 
         <CommandBar
             Grid.Row="3"

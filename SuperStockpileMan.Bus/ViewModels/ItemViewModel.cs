@@ -35,6 +35,11 @@ namespace SuperStockpileMan.Bus.ViewModels
         {
             using SuperStockpileManContext context = await factory.CreateDbContextAsync();
 
+            EntityEntry<SmallestCategory> entityEntry = context.Attach(SmallestCategory);
+            await entityEntry
+                .Collection(e => e.Locations)
+                .LoadAsync();
+
             SmallestCategories.Clear();
             Locations.Clear();
 
@@ -46,12 +51,12 @@ namespace SuperStockpileMan.Bus.ViewModels
                 .AsAsyncEnumerable())
                 SmallestCategories.Add(category);
 
-            await foreach (
+            foreach (
                 Location location in
-                context
+                SmallestCategory
                 .Locations
                 .OrderBy(e => e.Name)
-                .AsAsyncEnumerable())
+                .ToList())
                 Locations.Add(location);
         }
 
@@ -83,6 +88,8 @@ namespace SuperStockpileMan.Bus.ViewModels
                 Location location in
                 context
                 .Locations
+                .Include(e => e.CategoryBases)
+                .Where(e => e.CategoryBases.Contains(SmallestCategory))
                 .OrderBy(e => e.Name)
                 .AsAsyncEnumerable())
                 Locations.Add(location);
@@ -138,6 +145,7 @@ namespace SuperStockpileMan.Bus.ViewModels
                 if (SetProperty(item.Name, value, item, (m, v) => m.Name = v, true))
                 {
                     SaveCommand.NotifyCanExecuteChanged();
+                    RemoveCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -158,6 +166,7 @@ namespace SuperStockpileMan.Bus.ViewModels
                 if (SetProperty(item.PurchaseDate, value, item, (m, v) => m.PurchaseDate = v, true))
                 {
                     SaveCommand.NotifyCanExecuteChanged();
+                    RemoveCommand.NotifyCanExecuteChanged();
                 }
             }
         }
@@ -187,7 +196,10 @@ namespace SuperStockpileMan.Bus.ViewModels
             set
             {
                 if (SetProperty(item.SmallestCategoryId, value.Id, item, (m, v) => m.SmallestCategoryId = v, true))
+                {
                     SaveCommand.NotifyCanExecuteChanged();
+                    RemoveCommand.NotifyCanExecuteChanged();
+                }
             }
         }
 
@@ -198,8 +210,21 @@ namespace SuperStockpileMan.Bus.ViewModels
             set
             {
                 if (SetProperty(item.LocationId, value.Id, item, (m, v) => m.LocationId = v, true))
+                {
                     SaveCommand.NotifyCanExecuteChanged();
+                    RemoveCommand.NotifyCanExecuteChanged();
+                }
             }
+        }
+
+        [RelayCommand(AllowConcurrentExecutions = false, CanExecute = nameof(CanSave))]
+        private async Task RemoveAsync()
+        {
+            using SuperStockpileManContext context = await factory.CreateDbContextAsync();
+
+            context.Remove(item);
+
+            await context.SaveChangesAsync();
         }
     }
 }
