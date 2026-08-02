@@ -31,6 +31,8 @@
     <None Remove="TreeViewTemplates.xaml" />
     <None Remove="Views\CategoriesView.xaml" />
     <None Remove="Views\CategoryView.xaml" />
+    <None Remove="Views\LocationsView.xaml" />
+    <None Remove="Views\LocationView.xaml" />
     <None Remove="Views\SmallestCategoryView.xaml" />
   </ItemGroup>
 
@@ -107,6 +109,16 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Remove="BundleArtifacts\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LocationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\LocationsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="DataTableTemplates.xaml">

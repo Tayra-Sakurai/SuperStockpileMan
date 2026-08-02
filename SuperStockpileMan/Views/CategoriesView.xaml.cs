@@ -25,7 +25,7 @@ namespace SuperStockpileMan.Views;
 /// <summary>
 /// An empty page that can be used on its own or navigated to within a Frame.
 /// </summary>
-public sealed partial class CategoriesView : Page, IRecipient<CategoryInvokedMessage>, IRecipient<CategoryRemovedMessage>
+public sealed partial class CategoriesView : Page, IRecipient<CategoryInvokedMessage>, IRecipient<CategoryRemovedMessage>, IRecipient<SmallestCategoryInvokedMessage>
 {
     private CategoriesViewModel? categoriesViewModel;
 
@@ -49,6 +49,7 @@ public sealed partial class CategoriesView : Page, IRecipient<CategoryInvokedMes
 
         WeakReferenceMessenger.Default.Register<CategoryInvokedMessage>(this);
         WeakReferenceMessenger.Default.Register<CategoryRemovedMessage>(this);
+        WeakReferenceMessenger.Default.Register<SmallestCategoryInvokedMessage>(this);
     }
 
     protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -67,5 +68,10 @@ public sealed partial class CategoriesView : Page, IRecipient<CategoryInvokedMes
     {
         if (categoriesViewModel != null)
             await categoriesViewModel.LoadAsync();
+    }
+
+    public void Receive(SmallestCategoryInvokedMessage message)
+    {
+        Frame.Navigate(typeof(SmallestCategoryView), message.Value);
     }
 }

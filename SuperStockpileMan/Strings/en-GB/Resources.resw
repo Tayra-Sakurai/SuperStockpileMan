@@ -150,6 +150,12 @@
   <data name="LifeCol.Content" xml:space="preserve">
     <value>Due Date</value>
   </data>
+  <data name="LocationDescription.Text" xml:space="preserve">
+    <value>You can edit the data of the location.</value>
+  </data>
+  <data name="LocationsDescription.Text" xml:space="preserve">
+    <value>List of locations.</value>
+  </data>
   <data name="MustBePastMessage" xml:space="preserve">
     <value>The date must be in the past.</value>
   </data>

@@ -76,6 +76,7 @@ namespace SuperStockpileMan.Bus.ViewModels
         public async Task LoadExistingDataAsync(Location location)
         {
             this.location = location;
+            OnPropertyChanged(nameof(Name));
 
             await LoadAsync();
         }

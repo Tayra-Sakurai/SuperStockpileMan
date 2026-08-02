@@ -16,7 +16,16 @@
             <TextBlock Text="{x:Bind DueDate}"/>
         </controls:DataRow>
     </DataTemplate>
-    
+
+    <DataTemplate
+        x:DataType="models:Location"
+        x:Key="LocationRowTemplate">
+        <controls:DataRow>
+            <TextBlock Text="{x:Bind Id}"/>
+            <TextBlock Text="{x:Bind Name}"/>
+        </controls:DataRow>
+    </DataTemplate>
+
     <Style
         TargetType="ListView"
         x:Key="ItemDataTableStyle">
@@ -46,5 +55,38 @@
                 </Style>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style
+        TargetType="ListView"
+        x:Key="SpecialTableStyle">
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style
+                    TargetType="ListViewItem"
+                    BasedOn="{StaticResource DefaultListViewItemStyle}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style
+        TargetType="ListView"
+        x:Key="LocationsListViewStyle"
+        BasedOn="{StaticResource SpecialTableStyle}">
+        <Setter Property="Header">
+            <Setter.Value>
+                <controls:DataTable>
+                    <controls:DataColumn x:Uid="IdCol"/>
+                    <controls:DataColumn
+                        x:Uid="NameCol"
+                        DesiredWidth="*"/>
+                </controls:DataTable>
+            </Setter.Value>
+        </Setter>
+        <Setter
+            Property="ItemTemplate"
+            Value="{StaticResource LocationRowTemplate}"/>
     </Style>
 </ResourceDictionary>
