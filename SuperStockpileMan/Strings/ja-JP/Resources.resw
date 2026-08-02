@@ -147,6 +147,9 @@
   <data name="IdCol.Content" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="IdCol.Text" xml:space="preserve">
+    <value>ID</value>
+  </data>
   <data name="LifeCol.Content" xml:space="preserve">
     <value>期限</value>
   </data>
@@ -163,6 +166,9 @@
     <value>名称を入力</value>
   </data>
   <data name="NameCol.Content" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="NameCol.Text" xml:space="preserve">
     <value>名称</value>
   </data>
   <data name="ParentCategoryBox.Header" xml:space="preserve">

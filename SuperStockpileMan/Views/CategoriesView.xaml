@@ -28,13 +28,19 @@
             ItemTemplateSelector="{StaticResource CategoryTreeViewDataTemplateSelector}"
             x:Name="TreeView">
             <controls:HeaderedTreeView.Header>
-                <controls:DataTable>
-                    <controls:DataColumn
-                        x:Uid="IdCol"/>
-                    <controls:DataColumn
+                <Grid ColumnSpacing="12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        x:Uid="IdCol"
+                        FontWeight="SemiBold"/>
+                    <TextBlock
+                        Grid.Column="1"
                         x:Uid="NameCol"
-                        DesiredWidth="*"/>
-                </controls:DataTable>
+                        FontWeight="SemiBold"/>
+                </Grid>
             </controls:HeaderedTreeView.Header>
         </controls:HeaderedTreeView>
 
