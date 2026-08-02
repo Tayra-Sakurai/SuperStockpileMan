@@ -38,7 +38,6 @@
             PropertyName="Name"/>
 
         <TreeView
-            x:Uid="ChildrenCategory"
             Grid.Row="2"
             ItemsSource="{x:Bind viewModel.Children}"
             ItemTemplateSelector="{StaticResource InstantCategoryTreeViewTemplateSelector}"/>

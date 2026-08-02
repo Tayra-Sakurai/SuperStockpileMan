@@ -106,7 +106,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             AddCommand.NotifyCanExecuteChanged();
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public string Name
         {
             get => category.Name;

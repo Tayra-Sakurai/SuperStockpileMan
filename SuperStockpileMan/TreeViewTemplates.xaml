@@ -5,27 +5,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SuperStockpileMan"
     xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:models="using:SuperStockpileMan.Bus.Models">
     <DataTemplate
         x:Key="CategoryTreeViewTemplate"
         x:DataType="models:Category">
-        <TreeViewItem ItemsSource="{x:Bind Children}">
-            <controls:DataRow>
-                <TextBlock Text="{x:Bind Id}"/>
-                <TextBlock Text="{x:Bind Name}"/>
-            </controls:DataRow>
-        </TreeViewItem>
+        <muxc:TreeViewItem ItemsSource="{x:Bind Children}">
+            <muxc:TreeViewItem.Content>
+                <controls:DataRow>
+                    <TextBlock Text="{x:Bind Id}"/>
+                    <TextBlock Text="{x:Bind Name}"/>
+                </controls:DataRow>
+            </muxc:TreeViewItem.Content>
+        </muxc:TreeViewItem>
     </DataTemplate>
 
     <DataTemplate
         x:Key="SmallestCategoryTreeViewTemplate"
         x:DataType="models:SmallestCategory">
-        <TreeViewItem>
+        <muxc:TreeViewItem>
             <controls:DataRow>
                 <TextBlock Text="{x:Bind Id}"/>
                 <TextBlock Text="{x:Bind Name}"/>
             </controls:DataRow>
-        </TreeViewItem>
+        </muxc:TreeViewItem>
     </DataTemplate>
 
     <DataTemplate

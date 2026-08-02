@@ -27,6 +27,7 @@
   <ItemGroup>
     <None Remove="CustomDataTemplates.xaml" />
     <None Remove="DataTableTemplates.xaml" />
+    <None Remove="HomePage.xaml" />
     <None Remove="SuperStockpileMan_TemporaryKey_b64.txt" />
     <None Remove="TreeViewTemplates.xaml" />
     <None Remove="Views\CategoriesView.xaml" />
@@ -112,6 +113,11 @@
     <PRIResource Remove="BundleArtifacts\**" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="HomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Views\ItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,5 +161,10 @@
     <Page Update="Views\CategoriesView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Update="Strings\ja-JP\Resources.resw">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </PRIResource>
   </ItemGroup>
 </Project>

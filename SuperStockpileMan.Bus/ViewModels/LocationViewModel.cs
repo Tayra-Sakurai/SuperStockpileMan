@@ -103,7 +103,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             return true;
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public string Name
         {
             get => location.Name;

@@ -29,6 +29,13 @@ namespace SuperStockpileMan
         public MainWindow()
         {
             InitializeComponent();
+            Activated += MainWindow_Activated;
+        }
+
+        private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            if (MainFrame.SourcePageType == null)
+                MainFrame.Navigate(typeof(HomePage));
         }
     }
 }

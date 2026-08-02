@@ -136,7 +136,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             return !HasErrors;
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public string Name
         {
             get => item.Name;
@@ -156,8 +156,8 @@ namespace SuperStockpileMan.Bus.ViewModels
             set => SetProperty(item.Description, value, item, (m, v) => m.Description = v);
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
-        [PastDateTimeOffsetValidation(ErrorMessageResourceName = "MustBePastMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
+        [PastDateTimeOffsetValidation(ErrorMessageResourceName = "MustBePastMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public DateTimeOffset PurchaseDate
         {
             get => item.PurchaseDate;
@@ -189,7 +189,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             set => SetProperty(item.DueDate, value, item, (m, v) => m.DueDate = v);
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public SmallestCategory SmallestCategory
         {
             get => SmallestCategories.First(e => e.Id == item.SmallestCategoryId);
@@ -203,7 +203,7 @@ namespace SuperStockpileMan.Bus.ViewModels
             }
         }
 
-        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(string))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(ErrorMessages.ErrorMessages))]
         public Location Location
         {
             get => Locations.First(l => l.Id == item.LocationId);

@@ -124,7 +124,8 @@ namespace SuperStockpileMan.TemplatedElements
         private static void OnValidationErrorInfoPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ValidationTextBox)d).ValidateText();
-            ((INotifyDataErrorInfo)e.OldValue).ErrorsChanged -= ((ValidationTextBox)d).ValidationTextBox_ErrorsChanged;
+            if (e.OldValue is INotifyDataErrorInfo notifyDataErrorInfo)
+                notifyDataErrorInfo.ErrorsChanged -= ((ValidationTextBox)d).ValidationTextBox_ErrorsChanged;
             ((INotifyDataErrorInfo)e.NewValue).ErrorsChanged += ((ValidationTextBox)d).ValidationTextBox_ErrorsChanged;
         }
 

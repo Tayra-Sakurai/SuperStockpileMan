@@ -30,9 +30,9 @@
             <controls:HeaderedTreeView.Header>
                 <controls:DataTable>
                     <controls:DataColumn
-                        x:Uid="IdColumn"/>
+                        x:Uid="IdCol"/>
                     <controls:DataColumn
-                        x:Uid="NameColumn"
+                        x:Uid="NameCol"
                         DesiredWidth="*"/>
                 </controls:DataTable>
             </controls:HeaderedTreeView.Header>
@@ -49,7 +49,7 @@
 
         <CommandBar
             Grid.Row="3"
-            DefaultLabelPosition="Collapsed">
+            DefaultLabelPosition="Bottom">
             <AppBarButton
                 Icon="Add"
                 x:Uid="AddBtnC"
